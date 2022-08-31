@@ -31,7 +31,7 @@ public class MiVentana extends JFrame {
         super.paint(g);
 
 
-        Bresenham(300,400,200,360);
+        Bresenham(100,100,0,0);
 
 
 
@@ -73,7 +73,7 @@ public class MiVentana extends JFrame {
 
 
 
-    public void Bresenham(int x0, int x1,int y0,int y1){
+    public void Bresenham(int x0, int y0,int x1,int y1){
         int x, y, dx, dy, p, incE, incNE, stepx, stepy;
         dx = (x1 - x0);
         dy = (y1 - y0);
