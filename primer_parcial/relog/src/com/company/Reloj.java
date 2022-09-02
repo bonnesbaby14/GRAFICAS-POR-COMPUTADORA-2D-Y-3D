@@ -16,7 +16,7 @@ public class Reloj extends JFrame implements Runnable {
     public int radioMinuto = 150;
     public int radioSegundo = 200;
 
-    private int hora =3;
+    private int hora =12;
     private int minuto = 15;
     private int segundo = 1;
 
