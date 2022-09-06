@@ -33,9 +33,9 @@ public class Carrera extends JFrame{
         JLabel tercero=new JLabel("Tercer lugar");
 
 
-        elefante =new ImageIcon("/home/bonnesbaby14/Escritorio/ComputacionParalela/primer-parcial/practica_nueve/src/com/company/elefante.png");
-        hiena =new ImageIcon("/home/bonnesbaby14/Escritorio/ComputacionParalela/primer-parcial/practica_nueve/src/com/company/hiena.png");
-        jirafa =new ImageIcon("/home/bonnesbaby14/Escritorio/ComputacionParalela/primer-parcial/practica_nueve/src/com/company/jirafa.png");
+        elefante =new ImageIcon("/home/bonnesbaby14/Escritorio/CETI/GRAFICASPORCOMPUTADORA2DY3D/primer_parcial/carrera/src/com/company/elefante.png");
+        hiena =new ImageIcon("/home/bonnesbaby14/Escritorio/CETI/GRAFICASPORCOMPUTADORA2DY3D/primer_parcial/carrera/src/com/company/hiena.png");
+        jirafa =new ImageIcon("/home/bonnesbaby14/Escritorio/CETI/GRAFICASPORCOMPUTADORA2DY3D/primer_parcial/carrera/src/com/company/jirafa.png");
 
 
 
