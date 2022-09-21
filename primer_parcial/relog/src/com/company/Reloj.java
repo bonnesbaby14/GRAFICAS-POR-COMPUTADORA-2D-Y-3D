@@ -149,8 +149,8 @@ public class Reloj extends JFrame implements Runnable {
               g2d.drawString("7",118,328);
               g2d.drawString("8",70,285);
 
-              g2d.drawString("10",101,145);
-              g2d.drawString("11",70,185);
+              g2d.drawString("11",101,145);
+              g2d.drawString("10",70,185);
 
               g2d.setColor(Color.YELLOW);
               g2d.setStroke(new BasicStroke(5));
@@ -324,77 +324,40 @@ public class Reloj extends JFrame implements Runnable {
             //cuadrante 1 x+;y-
             float maxHora = 180;
             float  anguloAux = (maxHora - hora) * (angulo2);
-            //System.out.println("angulo: " + anguloAux);
-            //System.out.println("cos: " + Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("sin: " + Math.sin(Math.toRadians(anguloAux)));
-
             float subX = (float) ((float) radioHora * Math.cos(Math.toRadians(anguloAux)));
             float subY = (float) ((float) radioHora * Math.sin(Math.toRadians(anguloAux)));
-            //System.out.println("subX: " + subX);
-            //System.out.println("suby: " + subY);
             x = Math.round(inicial[0] + subX);
             y = Math.round(inicial[1] - subY);
 
-            //System.out.println("x: " + x + " y: " + y);
-
-
         } else if (hora <= 360) {
             //cuadrante 2 x+;y+
-
-
             int maxHora = 360;
             float anguloAux = (maxHora - hora) * (angulo2);
-            //System.out.println("angulo: " + anguloAux);
-            //System.out.println("cos: " + Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("sin: " + Math.sin(Math.toRadians(anguloAux)));
-
             float subX = (float) ((float) radioHora * Math.sin(Math.toRadians(anguloAux)));
             float subY = (float) ((float) radioHora * Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("subX: " + subX);
-            //System.out.println("suby: " + subY);
             x = Math.round(inicial[0] + subX);
             y = Math.round(inicial[1] + subY);
 
-            System.out.println("x: " + x + " y: " + y);
 
         } else if (hora <= 540) {
             //cuadrante 3 x-;y+
             int maxHora = 540;
             float anguloAux = (maxHora - hora) * (angulo2);
-            //System.out.println("angulo: " + anguloAux);
-            //System.out.println("cos: " + Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("sin: " + Math.sin(Math.toRadians(anguloAux)));
 
             float subX = (float) ((float) radioHora * Math.cos(Math.toRadians(360 - anguloAux)));
             float subY = (float) ((float) radioHora * Math.sin(Math.toRadians(360 - anguloAux)));
-            //System.out.println("subX: " + subX);
-            //System.out.println("suby: " + subY);
             x = Math.round(inicial[0] - subX);
             y = Math.round(inicial[1] - subY);
-
-            //System.out.println("x: " + x + " y: " + y);
 
         } else {
-            //cuadrante 4 x-;y-
+
             int maxHora = 720;
             float anguloAux = (maxHora - hora) * (angulo2);
-            //System.out.println("angulo: " + anguloAux);
-            //System.out.println("cos: " + Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("sin: " + Math.sin(Math.toRadians(anguloAux)));
-
             float subX = (float) ((float) radioHora * Math.sin(Math.toRadians(anguloAux)));
             float subY = (float) ((float) radioHora * Math.cos(Math.toRadians(anguloAux)));
-            //System.out.println("subX: " + subX);
-            //System.out.println("suby: " + subY);
             x = Math.round(inicial[0] - subX);
             y = Math.round(inicial[1] - subY);
-
-            //System.out.println("x: " + x + " y: " + y);
-
-
         }
-
-
         return new int[]{x, y};
     }
 
