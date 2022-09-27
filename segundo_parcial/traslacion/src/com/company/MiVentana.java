@@ -8,18 +8,21 @@ import static java.awt.Color.red;
 
 public class MiVentana extends JFrame implements Runnable {
 
-    private BufferedImage buffer;
+    private Image fondo;
+    private Image buffer;
+
+    private BufferedImage bufferImage;
     private Graphics graPixel;
 
-    int[] punto1={100,100};
-    int[] punto2={300,100};
-    int[] punto3={300,300};
-    int[] punto4={100,300};
+    int[] punto1={10,10};
+    int[] punto2={30,10};
+    int[] punto3={30,30};
+    int[] punto4={10,30};
     boolean firstime=true;
 
-    int maxX=600;
-    int mayY=400;
-    int incX=3;
+    int maxX=400;
+    int mayY=200;
+    int incX=1;
     int incY=1;
 
 
@@ -28,40 +31,55 @@ public class MiVentana extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 800);
         setLayout(null);
-        buffer= new BufferedImage(1,1, BufferedImage.TYPE_INT_RGB);
-        graPixel=(Graphics2D)buffer.createGraphics();
+        bufferImage= new BufferedImage(1,1, BufferedImage.TYPE_INT_RGB);
+
 
     }
 
 
-    public void putPixel(int x, int y, Color c) {
-        buffer.setRGB(0, 0, c.getRGB());
+    public void putPixel(int x, int y, Color c,Graphics g) {
+        bufferImage.setRGB(0, 0, c.getRGB());
 
-        this.getGraphics().drawImage(buffer, x, y, this);
+        g.drawImage(bufferImage, x, y, this);
     }
 
     public void paint (Graphics g) {
-        super.paint(g);
+        if(fondo==null){
+            fondo=createImage(getWidth(),getHeight());
+            Graphics gfondo=fondo.getGraphics();
+            gfondo.setClip(0,0,getWidth(),getHeight());
+        }
+
+        update(g);
+    }
+
+    @Override
+    public void update(Graphics g) {
+        g.setClip(0,0,getWidth(),getHeight());
+        buffer=createImage(getWidth(),getHeight());
+        Graphics gbufer=buffer.getGraphics();
+        gbufer.setClip(0,0,getWidth(),getHeight());
+        gbufer.drawImage(fondo,0,0,this);
 
         if(firstime){
-            Bresenham(punto1[0],punto1[1],punto2[0],punto2[1]);
-            Bresenham(punto2[0],punto2[1],punto3[0],punto3[1]);
-            Bresenham(punto3[0],punto3[1],punto4[0],punto4[1]);
-            Bresenham(punto4[0],punto4[1],punto1[0],punto1[1]);
+            Bresenham(punto1[0],punto1[1],punto2[0],punto2[1],gbufer);
+            Bresenham(punto2[0],punto2[1],punto3[0],punto3[1],gbufer);
+            Bresenham(punto3[0],punto3[1],punto4[0],punto4[1],gbufer);
+            Bresenham(punto4[0],punto4[1],punto1[0],punto1[1],gbufer);
             firstime=false;
         }
 
         int [][] resultado= tralacion(incX,incY, new int[][] {punto1,punto2,punto3,punto4});
-        Bresenham(resultado[0][0],resultado[0][1],resultado[1][0],resultado[1][1]);
-        Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1]);
-        Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1]);
-        Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1]);
+        resultado=escalar(incX,incY,resultado);
 
-
+        Bresenham(resultado[0][0],resultado[0][1],resultado[1][0],resultado[1][1],gbufer);
+        Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1],gbufer);
+        Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1],gbufer);
+        Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1],gbufer);
+        g.drawImage(buffer,0,0,this);
     }
 
-
-    public void Bresenham(int x0, int y0,int x1,int y1){
+    public void Bresenham(int x0, int y0, int x1, int y1,Graphics g){
         int x, y, dx, dy, p, incE, incNE, stepx, stepy;
         dx = (x1 - x0);
         dy = (y1 - y0);
@@ -80,7 +98,7 @@ public class MiVentana extends JFrame implements Runnable {
             stepx = 1;
         x = x0;
         y = y0;
-        putPixel(x,y,Color.red);
+        putPixel(x,y,Color.red,g);
         /* se cicla hasta llegar al extremo de la línea */
         if(dx>dy){
             p = 2*dy - dx;
@@ -95,7 +113,7 @@ public class MiVentana extends JFrame implements Runnable {
                     y = y + stepy;
                     p = p + incNE;
                 }
-                putPixel(x,y,Color.red);
+                putPixel(x,y,Color.red,g);
             }
         }
         else{
@@ -111,7 +129,7 @@ public class MiVentana extends JFrame implements Runnable {
                     x = x + stepx;
                     p = p + incNE;
                 }
-                putPixel(x,y,Color.red);
+                putPixel(x,y,Color.red,g);
 
             }
         }
@@ -123,7 +141,35 @@ public class MiVentana extends JFrame implements Runnable {
 
 
 
-        int [][] resultado=multiply(new int[][]{{1,0,incX},{0,1,incY},{0,0,1}},new int[][]{{puntos[0][0],puntos[0][1],1},{puntos[1][0],puntos[1][1],1},{puntos[2][0],puntos[2][1],1},{puntos[3][0],puntos[3][1],1}});
+        int [][] resultado=multiply(new int[][]{
+                {1,0,incX},
+                {0,1,incY},
+                {0,0,1}
+        },new int[][]{
+                {puntos[0][0],puntos[0][1],1}
+                ,{puntos[1][0],puntos[1][1],1}
+                ,{puntos[2][0],puntos[2][1],1}
+                ,{puntos[3][0],puntos[3][1],1}
+        });
+
+
+        return resultado;
+
+    }
+    public int [][]  escalar(int incX, int incY, int [][] puntos) {
+
+
+
+        int [][] resultado=multiply(new int[][]{
+                {incX,0,0},
+                {0,incY,0},
+                {0,0,1}
+        },new int[][]{
+                {puntos[0][0],puntos[0][1],1}
+                ,{puntos[1][0],puntos[1][1],1}
+                ,{puntos[2][0],puntos[2][1],1}
+                ,{puntos[3][0],puntos[3][1],1}
+        });
 
 
         return resultado;
@@ -158,12 +204,12 @@ public class MiVentana extends JFrame implements Runnable {
         while (incX<maxX || incY<mayY){
 
             try {
-                incX+=10;
-                incY+=10;
+                incX+=1;
+                incY+=1;
 
                 repaint();
-                System.out.println("entre");
-                Thread.sleep(100);
+
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
