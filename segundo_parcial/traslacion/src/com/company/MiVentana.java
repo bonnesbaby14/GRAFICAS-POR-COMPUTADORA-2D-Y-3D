@@ -83,27 +83,8 @@ public class MiVentana extends JFrame implements Runnable {
 
 
 
-
-
-
-
-
-        //int [][] resultado=new int[][]{punto1,punto2,punto3,punto4};
         int [][] resultado= tralacion(incX,incY, new int[][] {punto1,punto2,punto3,punto4});
 
-
-        /*
-        System.out.println("[");
-        for (int x=0;x<resultado.length;x++){
-            for(int y=0;y<resultado[x].length;y++){
-                System.out.print(resultado[x][y]);
-                System.out.print(",");
-            }
-            System.out.println("");
-        }
-        System.out.println("]");
-*/
-        //resultado=tralacion(incX,incY,resultado);
 
 
         puntos_dibujados.clear();
@@ -111,14 +92,9 @@ public class MiVentana extends JFrame implements Runnable {
         Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1],gbufer);
         Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1],gbufer);
         Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1],gbufer);
-        llenado_uno(new int[]{345,445},gbufer);
-        //llenado_dos(gbufer,resultado[0],resultado[1],resultado[2]);
-        //System.out.println("llegue hasta aqui");
-        g.drawImage(buffer,0,0,this);
-        int a=1;
-        while(a==0){
 
-        }
+        g.drawImage(buffer,0,0,this);
+
     }
 
 
@@ -140,67 +116,6 @@ public class MiVentana extends JFrame implements Runnable {
 
         return resultado;
 
-    }
-    public int [][]  escalar(int incX, int incY, int [][] puntos) {
-
-
-
-        int [][] resultado=multiply(new int[][]{
-                {incX,0,0},
-                {0,incY,0},
-                {0,0,1}
-        },new int[][]{
-                {puntos[0][0],puntos[0][1],1}
-                ,{puntos[1][0],puntos[1][1],1}
-                ,{puntos[2][0],puntos[2][1],1}
-                ,{puntos[3][0],puntos[3][1],1}
-        });
-
-
-        return resultado;
-
-    }
-    public int [][]  rotacion(int angulo, int [][] puntos) {
-
-
-
-        int [][] resultado=multiply(new double[][]{
-                {Math.cos(Math.toRadians(angulo)),  -Math.sin(Math.toRadians(angulo)),0},
-                { Math.sin(Math.toRadians(angulo)),Math.cos(Math.toRadians(angulo)),0},
-                {0,0,1}
-        },new int[][]{
-                {puntos[0][0],puntos[0][1],1}
-                ,{puntos[1][0],puntos[1][1],1}
-                ,{puntos[2][0],puntos[2][1],1}
-                ,{puntos[3][0],puntos[3][1],1}
-        });
-
-
-        return resultado;
-
-    }
-
-    public boolean is_in(int [][] figura,int[] punto){
-        int [] diferencias=new int[figura.length];
-        boolean resultado=true;
-
-        for (int i=0;i<diferencias.length;i++){
-
-            if(i==diferencias.length-1){
-
-                diferencias[i]=(figura[0][0]-figura[i][0])*(punto[1]-figura[i][1])-(punto[0]-figura[i][0])*(figura[0][1]-figura[i][1]);
-            }else{
-                diferencias[i]=(figura[i+1][0]-figura[i][0])*(punto[1]-figura[i][1])-(punto[0]-figura[i][0])*(figura[i+1][1]-figura[i][1]);
-            }
-
-        }
-        for (int x=0;x<diferencias.length; x++){
-            if(diferencias[x]<0){
-                resultado=false;
-            }
-
-        }
-        return resultado;
     }
     public void Bresenham(int x0, int y0, int x1, int y1,Graphics g){
         int x, y, dx, dy, p, incE, incNE, stepx, stepy;
@@ -260,39 +175,6 @@ public class MiVentana extends JFrame implements Runnable {
             }
         }
 
-
-    }
-
-    public void llenado_uno( int [] punto, Graphics g){
-
-
-
-        if(!puntos_dibujados.contains(String.valueOf(punto[0])+","+String.valueOf(punto[1])) ) {
-            putPixel(punto[0],punto[1],Color.green,g);
-            puntos_dibujados.add(String.valueOf(punto[0])+","+String.valueOf(punto[1]));
-
-            //System.out.println(String.valueOf(punto[0])+","+String.valueOf(punto[1]));
-            llenado_uno( new int[]{punto[0], punto[1]-1},g);
-            llenado_uno( new int[]{punto[0]+1, punto[1]},g);
-            llenado_uno( new int[]{punto[0], punto[1]+1},g);
-            llenado_uno( new int[]{punto[0]-1, punto[1]},g);
-
-        }else{
-            return;
-        }
-
-
-
-
-
-    }
-
-    public void llenado_dos(Graphics g, int [] punto1, int [] punto2, int [] punto3){
-
-        for(int i=punto1[1]; i<=punto3[1];i++){
-            Bresenham(punto1[0],punto1[1]+i,punto2[0],punto2[1]+i,g);
-
-        }
 
     }
 
