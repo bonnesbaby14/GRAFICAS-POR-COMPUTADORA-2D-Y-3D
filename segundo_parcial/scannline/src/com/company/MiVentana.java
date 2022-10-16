@@ -96,6 +96,12 @@ public class MiVentana extends JFrame implements Runnable {
 
         puntos_dibujados.clear();
 
+        /*
+        Bresenham(resultado[0][0],resultado[0][1],resultado[1][0],resultado[1][1],gbufer);
+        Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1],gbufer);
+        Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1],gbufer);
+        Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1],gbufer);
+*/
         llenado_dos(gbufer,resultado[0],resultado[1],resultado[3]);
 
         g.drawImage(buffer,0,0,this);

@@ -17,9 +17,11 @@ public class MiVentana extends JFrame implements Runnable {
     public ArrayList<String> puntos_dibujados;
 
     int[] punto1={50,50};
-    int[] punto2={60,50};
-    int[] punto3={60,60};
-    int[] punto4={50,60};
+    int[] punto2={100,50};
+    int[] punto3={100,100};
+    int[] punto4={50,100};
+    int [] centro={50,50};
+    int radio=20;
     boolean firstime=true;
 
     int maxX=1000;
@@ -68,41 +70,12 @@ public class MiVentana extends JFrame implements Runnable {
         gbufer.setClip(0,0,getWidth(),getHeight());
         gbufer.drawImage(fondo,0,0,this);
 
-        if(firstime){
-            puntos_dibujados.clear();
-            Bresenham(punto1[0],punto1[1],punto2[0],punto2[1],gbufer);
-            Bresenham(punto2[0],punto2[1],punto3[0],punto3[1],gbufer);
-            Bresenham(punto3[0],punto3[1],punto4[0],punto4[1],gbufer);
-            Bresenham(punto4[0],punto4[1],punto1[0],punto1[1],gbufer);
-            firstime=false;
-
-        }
-
-
-        //int [][] resultado=new int[][] {punto1,punto2,punto3,punto4};
-        int [][] resultado= tralacion(incX,incY, new int[][] {punto1,punto2,punto3,punto4});
-
-  /*
-        System.out.println("[");
-        for (int x=0;x<resultado.length;x++){
-            for(int y=0;y<resultado[x].length;y++){
-                System.out.print(resultado[x][y]);
-                System.out.print(",");
-            }
-            System.out.println("");
-        }
-        System.out.println("]");
-*/
 
         puntos_dibujados.clear();
-        Bresenham(resultado[0][0],resultado[0][1],resultado[1][0],resultado[1][1],gbufer);
-        Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1],gbufer);
-        Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1],gbufer);
-        Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1],gbufer);
-
 
         System.out.println("llegue hasta aqui");
-        llenado_uno(punto_medio(resultado),gbufer);
+        circulo_punto_medio(new int[] {200,200},20,gbufer);
+        //llenado_uno(new int[] {200,200},gbufer);
         g.drawImage(buffer,0,0,this);
 
         System.out.println("se pinto");
@@ -242,6 +215,51 @@ public class MiVentana extends JFrame implements Runnable {
             }
         }
         return c;
+    }
+
+    void circulo_punto_medio(int [] centro, int radio,Graphics gbufer)
+    {
+
+        int x = radio;
+        int y = 0;
+
+        putPixel(x + centro[0],y + centro[1],Color.red,gbufer);
+
+        int incremento = 1 - radio;
+        while (x > y) {
+            y++;
+            if (incremento <= 0)
+                incremento = incremento + 2 * y + 1;
+            else {
+                x--;
+                incremento = incremento + 2 * y - 2 * x + 1;
+            }
+
+            //CUADRANTE C
+            putPixel(x+centro[0],y+centro[1],Color.red,gbufer);
+            //CUADRANTE F
+            putPixel(-x+centro[0],y+centro[1],Color.red,gbufer);
+            //CUADRANTE B
+            putPixel(x+centro[0],-y+centro[1],Color.red,gbufer);
+            //CUADRANTE G
+            putPixel(-x+centro[0],-y+centro[1],Color.red,gbufer);
+
+
+            if (x != y) {
+
+                //CUADRANTE A
+                putPixel(y+centro[0],-x+centro[1],Color.red,gbufer);
+
+                //CUADRANTE D
+                putPixel(y+centro[0],x+centro[1],Color.red,gbufer);
+                //CUADRANTE E
+                putPixel(-y+centro[0],x+centro[1],Color.red,gbufer);
+                //CUADRANTE H
+                putPixel(-y+centro[0],-x+centro[1],Color.red,gbufer);
+
+
+            }
+        }
     }
     @Override
     public void run() {

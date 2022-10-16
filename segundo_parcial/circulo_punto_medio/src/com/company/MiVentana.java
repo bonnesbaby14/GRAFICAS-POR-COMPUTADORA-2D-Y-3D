@@ -14,7 +14,7 @@ public class MiVentana extends JFrame {
 
     int [] centro={300,300};
 
-    int radio=200;
+    int radio=40;
 
     public ArrayList<String> puntos_dibujados;
 
@@ -44,7 +44,12 @@ public class MiVentana extends JFrame {
         super.paint(g);
 
 
-        circulo_punto_medio(centro,radio);
+            puntos_dibujados.clear();
+            circulo_punto_medio(centro,radio);
+            llenado_uno(centro);
+            int a=0;
+
+
         System.out.println("uno");
 
 
@@ -56,6 +61,15 @@ public class MiVentana extends JFrame {
 
         int x = radio;
         int y = 0;
+
+        putPixel(centro[0],centro[1] + radio,Color.red);
+        puntos_dibujados.add((centro[0])+","+(centro[1]+radio));
+        putPixel(centro[0],centro[1] - radio,Color.red);
+        puntos_dibujados.add((centro[0])+","+(centro[1]-radio));
+        putPixel(centro[0]+ radio,centro[1] ,Color.red);
+        puntos_dibujados.add((centro[0]+radio)+","+(centro[1]));
+        putPixel(centro[0]- radio,centro[1] ,Color.red);
+        puntos_dibujados.add((centro[0]-radio)+","+(centro[1]));
 
         putPixel(x + centro[0],y + centro[1],Color.red);
 
@@ -71,25 +85,49 @@ public class MiVentana extends JFrame {
 
             //CUADRANTE C
             putPixel(x+centro[0],y+centro[1],Color.red);
+            puntos_dibujados.add((x+centro[0])+","+(y+centro[1]));
+            //puntos_dibujados.add(x+centro[0]-1+","+y+centro[1]);
+            //puntos_dibujados.add(x+centro[0]+1+","+y+centro[1]);
             //CUADRANTE F
             putPixel(-x+centro[0],y+centro[1],Color.red);
+            puntos_dibujados.add((-x+centro[0])+","+(y+centro[1]));
+            //puntos_dibujados.add(-x+centro[0]-1+","+y+centro[1]);
+            //puntos_dibujados.add(-x+centro[0]+1+","+y+centro[1]);
             //CUADRANTE B
             putPixel(x+centro[0],-y+centro[1],Color.red);
+            puntos_dibujados.add((x+centro[0])+","+(-y+centro[1]));
+            //puntos_dibujados.add(x+centro[0]-1+","+-y+centro[1]);
+            //puntos_dibujados.add(x+centro[0]+1+","+-y+centro[1]);
             //CUADRANTE G
             putPixel(-x+centro[0],-y+centro[1],Color.red);
+            puntos_dibujados.add((-x+centro[0])+","+(-y+centro[1]));
+            //puntos_dibujados.add(-x+centro[0]-1+","+-y+centro[1]);
+            //puntos_dibujados.add(-x+centro[0]+1+","+-y+centro[1]);
 
 
             if (x != y) {
 
                 //CUADRANTE A
                 putPixel(y+centro[0],-x+centro[1],Color.red);
+                puntos_dibujados.add((y+centro[0])+","+(-x+centro[1]));
+                //puntos_dibujados.add(y+centro[0]-1+","+-x+centro[1]);
+                //puntos_dibujados.add(y+centro[0]+1+","+-x+centro[1]);
 
                 //CUADRANTE D
                 putPixel(y+centro[0],x+centro[1],Color.red);
+                puntos_dibujados.add((y+centro[0])+","+(x+centro[1]));
+                //puntos_dibujados.add(y+centro[0]-1+","+x+centro[1]);
+                //puntos_dibujados.add(y+centro[0]+1+","+x+centro[1]);
                 //CUADRANTE E
                 putPixel(-y+centro[0],x+centro[1],Color.red);
+                puntos_dibujados.add((-y+centro[0])+","+(x+centro[1]));
+                //puntos_dibujados.add(-y+centro[0]-1+","+x+centro[1]);
+                //puntos_dibujados.add(-y+centro[0]+1+","+x+centro[1]);
                 //CUADRANTE H
                 putPixel(-y+centro[0],-x+centro[1],Color.red);
+                puntos_dibujados.add((-y+centro[0])+","+(-x+centro[1]));
+                //puntos_dibujados.add(-y+centro[0]+1+","+-x+centro[1]);
+                //puntos_dibujados.add(-y+centro[0]-1+","+-x+centro[1]);
 
 
             }
@@ -157,15 +195,20 @@ public class MiVentana extends JFrame {
 
     }
 
-    public void llenado_uno( int [] punto) throws InterruptedException {
+    public void llenado_uno( int [] punto)  {
 
+        if(!puntos_dibujados.contains(String.valueOf(punto[0])+","+String.valueOf(punto[1])) ) {
+            putPixel(punto[0],punto[1],Color.green);
+            puntos_dibujados.add(String.valueOf(punto[0])+","+String.valueOf(punto[1]));
 
+            //System.out.println(String.valueOf(punto[0])+","+String.valueOf(punto[1]));
+            llenado_uno( new int[]{punto[0], punto[1]-1});
+            llenado_uno( new int[]{punto[0]+1, punto[1]});
+            llenado_uno( new int[]{punto[0], punto[1]+1});
+            llenado_uno( new int[]{punto[0]-1, punto[1]});
 
-
-
-
-
-
+        }
+        return;
 
     }
 
