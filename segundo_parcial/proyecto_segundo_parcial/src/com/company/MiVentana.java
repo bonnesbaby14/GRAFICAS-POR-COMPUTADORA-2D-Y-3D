@@ -41,6 +41,7 @@ public class MiVentana extends JFrame implements Runnable {
     public float [][] puntos_orbita1={{-250, -250, 250, 250},{-250,250, 250,-250}};
     public float [][] puntos_orbita2={{-230, -230, 230, 230},{-230,230, 230,-230}};
     public  int angulo_planeta1=1;
+    int explosionColor=1;
 
 
 
@@ -278,9 +279,32 @@ public class MiVentana extends JFrame implements Runnable {
 
         }else{
 
-            this.setBackground(new java.awt.Color(9, 14, 31));
-            g.drawImage(buffer, 0, 0, null);
-            while(true);
+
+            switch (explosionColor){
+                case 1:
+                    this.setBackground(new java.awt.Color(255, 253, 253));
+                    g.drawImage(buffer, 0, 0, null);
+                    explosionColor=2;
+                    break;
+
+                case 2:
+                    this.setBackground(new java.awt.Color(84, 99, 159));
+                    g.drawImage(buffer, 0, 0, null);
+                    explosionColor=3;
+                    break;
+                case 3:
+                    this.setBackground(new java.awt.Color(34, 46, 91));
+                    g.drawImage(buffer, 0, 0, null);
+                    explosionColor=4;
+                    break;
+                case 4:
+                    this.setBackground(new java.awt.Color(5, 11, 26));
+                    g.drawImage(buffer, 0, 0, null);
+                    break;
+            }
+
+
+
 
         }
 
