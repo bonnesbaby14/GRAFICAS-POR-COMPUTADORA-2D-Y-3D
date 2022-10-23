@@ -269,12 +269,19 @@ public class MiVentana extends JFrame implements Runnable {
 
         }
 
-    }else{
+    }else if(pasos<1060){
             Circulo explosion = new Circulo(bufferImage, radioExplosion, new int[]{385, 385}, gbufer, buffer, g, Color.white);
             explosion.dibujar();
             explosion.relleno();
             radioExplosion++;
             g.drawImage(buffer, 0, 0, null);
+
+        }else{
+
+            this.setBackground(new java.awt.Color(9, 14, 31));
+            g.drawImage(buffer, 0, 0, null);
+            while(true);
+
         }
 
     }
