@@ -17,7 +17,7 @@ public class MiVentana extends JFrame implements Runnable {
 
 
     int[] punto1={100,100};
-    int[] punto2={400,800};
+    int[] punto2={400,600};
 
 
 

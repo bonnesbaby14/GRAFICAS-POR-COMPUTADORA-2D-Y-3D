@@ -44,7 +44,7 @@ public class MiVentana extends JFrame {
 
             x= (int) (centro[0] + (rx * Math.sin(i)));
             y= (int) (centro[1] + (ry * Math.cos(i)));
-            putPixel(x,y,Color.red);
+            putPixel(x,y,Color.blue);
 
         }
 

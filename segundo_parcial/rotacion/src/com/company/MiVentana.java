@@ -154,6 +154,7 @@ public class MiVentana extends JFrame implements Runnable {
             stepx = 1;
         x = x0;
         y = y0;
+
         putPixel(x,y,Color.red,g);
 
         /* se cicla hasta llegar al extremo de la línea */
@@ -231,7 +232,7 @@ public class MiVentana extends JFrame implements Runnable {
 
 
                 repaint();
-                sleep(50);
+                sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

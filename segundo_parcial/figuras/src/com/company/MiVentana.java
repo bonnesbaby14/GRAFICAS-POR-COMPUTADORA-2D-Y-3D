@@ -59,7 +59,8 @@ public class MiVentana extends JFrame implements Runnable {
         Bresenham(50,50,200,200,gbufer);
         Bresenham(200,100,400,100,gbufer);
         Bresenham(400,200,550,50,gbufer);
-        Bresenham(600,100,800,100,gbufer);
+        //Bresenham(600,100,800,100,gbufer);
+        Bresenham(800,100,600,100,gbufer);
 
         //circulos
 

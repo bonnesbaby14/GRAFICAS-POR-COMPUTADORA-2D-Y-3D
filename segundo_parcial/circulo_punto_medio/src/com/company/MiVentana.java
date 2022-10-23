@@ -14,7 +14,7 @@ public class MiVentana extends JFrame {
 
     int [] centro={300,300};
 
-    int radio=40;
+    int radio=100;
 
     public ArrayList<String> puntos_dibujados;
 
@@ -46,7 +46,7 @@ public class MiVentana extends JFrame {
 
             puntos_dibujados.clear();
             circulo_punto_medio(centro,radio);
-            llenado_uno(centro);
+            ///llenado_uno(centro);
             int a=0;
 
 
