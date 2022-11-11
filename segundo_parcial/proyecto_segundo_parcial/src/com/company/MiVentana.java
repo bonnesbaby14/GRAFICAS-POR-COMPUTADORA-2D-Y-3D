@@ -1,8 +1,11 @@
 package com.company;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
@@ -175,9 +178,9 @@ public class MiVentana extends JFrame implements Runnable {
         g.drawImage(buffer, 0, 0, null);
 
 
-        Rombo orbita1 = new Rombo(bufferImage, gbufer, buffer, g, Color.orange, puntos_orbita1[0], puntos_orbita1[1], -1, 5);
+        Rombo orbita1 = new Rombo(bufferImage, gbufer, buffer, g, Color.orange, puntos_orbita1[0], puntos_orbita1[1], -1, 6);
         puntos_orbita1 = orbita1.dibujar();
-        Rombo orbita2 = new Rombo(bufferImage, gbufer, buffer, g, Color.orange, puntos_orbita2[0], puntos_orbita2[1], 1, 4);
+        Rombo orbita2 = new Rombo(bufferImage, gbufer, buffer, g, Color.orange, puntos_orbita2[0], puntos_orbita2[1], 1, 5);
         puntos_orbita2 = orbita2.dibujar();
         sizeOrbita1 = orbita1.puntos_dibujados.size();
         sizeOrbita2 = orbita2.puntos_dibujados.size();
@@ -313,7 +316,16 @@ public class MiVentana extends JFrame implements Runnable {
 
     @Override
     public void run() {
-
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/conver.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch(Exception e) {
+            System.out.println("Error al reproducir el sonido.");
+        }
         while (true){
 
             try {
