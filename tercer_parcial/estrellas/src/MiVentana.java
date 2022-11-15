@@ -44,14 +44,14 @@ public class MiVentana extends JFrame {
     }
 
     public void estrella(int x, int y, Graphics g) {
-        double fx, fy;
+        double _x, _y;
 
 
 
         for (double i = 0; i < 14 * Math.PI; i += Math.PI / 800) {
-            fx = (17*Math.cos(i) + 7*Math.cos((2.428571428571429)*i))*5+x;
-            fy = (17*Math.sin(i) - 7*Math.sin((2.428571428571429)*i))*5+y;
-            putPixel((int) fx, (int) fy, Color.RED,g);
+            _x = (17*Math.cos(i) + 7*Math.cos((2.428571428571429)*i))*5+x;
+            _y = (17*Math.sin(i) - 7*Math.sin((2.428571428571429)*i))*5+y;
+            putPixel((int) _x, (int) _y, Color.RED,g);
 
 
 

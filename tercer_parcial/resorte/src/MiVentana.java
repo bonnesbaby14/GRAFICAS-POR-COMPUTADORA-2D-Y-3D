@@ -1,12 +1,11 @@
-
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
 
 import javax.swing.*;
-        import java.awt.*;
-        import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MiVentana extends JFrame {
     private BufferedImage buffer;
@@ -35,7 +34,7 @@ public class MiVentana extends JFrame {
         super.paint(g);
 
 
-        parametrica(200,200,g);
+        parametrica(400,400,g);
 
 
 
@@ -43,20 +42,22 @@ public class MiVentana extends JFrame {
 
     }
 
-    public void parametrica(int x, int y, Graphics g) {
+    public void parametrica(double x, double y, Graphics g) {
         double _x, _y;
-        double y_ = 0;
-        double x_ = 0;
 
-        for (int t = 0; t < 100; t++) {
-            _x = (t - (12 * Math.sin(t))+ x);
-            _y = Math.abs(16 - ((12 * Math.cos(t))+ y));
+        double  y_ = 0;
+        double  x_ = 0;
 
-            if(t==0){
+
+        for (double i = 0; i < 8 * Math.PI; i += Math.PI / 200) {
+            _x = Math.cos(i);
+            _y =Math.sin(i);
+
+            System.out.println(_x+","+_y);
+            if(i==0){
                 y_ = _y;
                 x_ = _x;
             }
-
             Bresenham((int) _x, (int) _y, (int) x_, (int) y_,g);
             y_ = _y;
             x_ = _x;
@@ -119,4 +120,3 @@ public class MiVentana extends JFrame {
 
     }
 }
-

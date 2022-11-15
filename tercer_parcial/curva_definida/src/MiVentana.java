@@ -43,33 +43,24 @@ public class MiVentana extends JFrame {
     }
 
     public void curva( Graphics g){
-        double inc = Math.PI / 500;
-        double y = 0, ya = 0, yb = 0;
-        double x = 0, xa = 0, xb = 0;
-        int cont = 1;
 
-        for (float i = 0; i < 4 * Math.PI; i += inc) {
+        double y = 0, y_ =0;
+        double x = 0, x_ =0;
+        
+
+        for (float i = 0; i < 4 * Math.PI; i +=  Math.PI / 500) {
             x = i * Math.cos(4 * i) * 20 + 350;
             y = i * 20 + 100;
-            putPixel((int) x+1, (int) y, Color.red,g);
-            putPixel((int) x-1, (int) y, Color.red,g);
-            putPixel((int) x, (int) y+1, Color.red,g);
-            putPixel((int) x, (int) y-1, Color.red,g);
 
-            if (cont % 2 == 1) {
-                if (cont != 1) {
-                    Bresenham((int) x, (int) y, (int) xb, (int) yb,g);
-                }
-                ya = y;
-                xa = x;
-
-            } else {
-                Bresenham((int) x, (int) y, (int) xa, (int) ya,g);
-                xb = x;
-                yb = y;
-
+            if(i==0){
+                x_ = x;
+                y_ = y;
             }
-            cont++;
+
+            Bresenham((int) x, (int) y, (int) x_, (int) y_,g);
+            x_ = x;
+            y_ = y;
+
         }
     }
     public void Bresenham(int x0, int y0, int x1, int y1, Graphics g) {

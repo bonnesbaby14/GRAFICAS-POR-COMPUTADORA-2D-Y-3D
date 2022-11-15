@@ -43,69 +43,16 @@ public class MiVentana extends JFrame {
     }
 
     public void curva( Graphics g, double radio, int grosor,int x, int y){
-        double fx, fy;
+        double _x, _y;
 
         for (int t = 0; t < grosor; t++) {
 
-            fx = radio * Math.sin(t) / (1 + Math.pow(Math.cos(t),2) ) + x;
-            fy = radio * Math.sin(t) * Math.cos(t) / (1 + Math.pow(Math.cos(t),2)) + y;
+            _x = radio * Math.sin(t) / (1 + Math.pow(Math.cos(t),2) ) + x;
+            _y = radio * Math.sin(t) * Math.cos(t) / (1 + Math.pow(Math.cos(t),2)) + y;
 
-            putPixel((int) fx, (int) fy, Color.blue,g);
+            putPixel((int) _x, (int) _y, Color.black,g);
 
         }
     }
-    public void Bresenham(int x0, int y0, int x1, int y1, Graphics g) {
-        int dx = x1 - x0;
-        int dy = y1 - y0;
-        byte stepy;
-        if (dy < 0) {
-            dy = -dy;
-            stepy = -1;
-        } else {
-            stepy = 1;
-        }
 
-        byte stepx;
-        if (dx < 0) {
-            dx = -dx;
-            stepx = -1;
-        } else {
-            stepx = 1;
-        }
-
-        int x = x0;
-        int y = y0;
-        this.putPixel(x0, y0, Color.red, g);
-        int p;
-        int incE;
-        int incNE;
-        if (dx > dy) {
-            p = 2 * dy - dx;
-            incE = 2 * dy;
-
-            for(incNE = 2 * (dy - dx); x != x1; this.putPixel(x, y, Color.green, g)) {
-                x += stepx;
-                if (p < 0) {
-                    p += incE;
-                } else {
-                    y += stepy;
-                    p += incNE;
-                }
-            }
-        } else {
-            p = 2 * dx - dy;
-            incE = 2 * dx;
-
-            for(incNE = 2 * (dx - dy); y != y1; this.putPixel(x, y, Color.green, g)) {
-                y += stepy;
-                if (p < 0) {
-                    p += incE;
-                } else {
-                    x += stepx;
-                    p += incNE;
-                }
-            }
-        }
-
-    }
 }

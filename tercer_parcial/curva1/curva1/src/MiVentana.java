@@ -38,8 +38,8 @@ public class MiVentana extends JFrame {
 
 
         curva(x1,y1,10,g);
-        curva(x1,y1+50,100,g);
-        curva(x1,y1+150,1000,g);
+       //curva(x1,y1+50,100,g);
+        //curva(x1,y1+150,1000,g);
 
 
 
@@ -47,36 +47,26 @@ public class MiVentana extends JFrame {
 
     public void curva(int x1,int y1,int divisor, Graphics g){
 
-        double div = (Math.PI*factor/2) / divisor;
-        double y = 0, ya = 0, yb = 0;
-        double x = 0, xa = 0, xb = 0;
-        int cont = 1;
 
-        for (double i = 0; i <= (Math.PI); i += div) {
+        double y = 0, y_ = 0;
+        double x = 0, x_ = 0;
+      
+
+        for (double i = 0; i <= (Math.PI); i += (Math.PI*factor/2) / divisor) {
             y = Math.abs((Math.sin(i) * 180) - y1);
             x = (i * 80) + x1;
             putPixel((int) x+1, (int) y, Color.black,g);
             putPixel((int) x-1, (int) y, Color.black,g);
             putPixel((int) x, (int) y+1, Color.black,g);
             putPixel((int) x, (int) y-1, Color.black,g);
-            putPixel((int) x+2, (int) y, Color.black,g);
-            putPixel((int) x-2, (int) y, Color.black,g);
-            putPixel((int) x, (int) y+2, Color.black,g);
-            putPixel((int) x, (int) y-2, Color.black,g);
-            if (cont % 2 == 1) {
-                if (cont != 1) {
-                    Bresenham((int) x, (int) y, (int) xb, (int) yb,g);
-                }
-                ya = y;
-                xa = x;
 
-            } else {
-                Bresenham((int) x, (int) y, (int) xa, (int) ya,g);
-                xb = x;
-                yb = y;
-
+            if(i==0){
+                x_=x;
+                y_=y;
             }
-            cont++;
+            Bresenham((int) x, (int) y, (int) x_, (int) y_,g);
+            x_=x;
+            y_=y;
         }
     }
     public void Bresenham(int x0, int y0, int x1, int y1, Graphics g) {

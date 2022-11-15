@@ -43,31 +43,24 @@ public class MiVentana extends JFrame {
     }
 
     public void parametrica(double x, double y, Graphics g) {
-        double fx, fy;
-        double inc = Math.PI / 2500;
-        double ya = 0, yb = 0;
-        double xa = 0, xb = 0;
-        int cont = 1;
+        double _x, _y;
 
-        for (double i = 0; i < 2 * Math.PI; i += inc) {
-            fx = (Math.cos(i) + .5*Math.cos(7*i) + .33*Math.sin(17*i))*80+x;
-            fy =((Math.sin(i) + .5*Math.sin(7*i) + .33*Math.cos(17*i))*80+y);
-            putPixel((int) fx, (int) fy, Color.BLUE,g);
-            //System.out.println("fx: "+fx+ " fy: "+fy);
-            if (cont % 2 == 1) {
-                if (cont != 1) {
-                    Bresenham((int) fx, (int) fy, (int) xb, (int) yb,g);
-                }
-                ya = fy;
-                xa = fx;
+        double y_ = 0;
+        double  x_ = 0;
 
-            } else {
-                Bresenham((int) fx, (int) fy, (int) xa, (int) ya,g);
-                xb = fx;
-                yb = fy;
 
+        for (double i = 0; i < 2 * Math.PI; i += Math.PI / 200) {
+            _x = (Math.cos(i) + .5*Math.cos(7*i) + .33*Math.sin(17*i))*80+x;
+            _y =((Math.sin(i) + .5*Math.sin(7*i) + .33*Math.cos(17*i))*80+y);
+
+            if(i==0){
+                y_ = _y;
+                x_ = _x;
             }
-            cont++;
+            Bresenham((int) _x, (int) _y, (int) x_, (int) y_,g);
+            y_ = _y;
+            x_ = _x;
+
 
         }
     }
