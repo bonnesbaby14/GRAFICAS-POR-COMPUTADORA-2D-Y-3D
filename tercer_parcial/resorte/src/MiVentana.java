@@ -14,6 +14,7 @@ public class MiVentana extends JFrame {
 
     int x1=100;
     int y1=300;
+    int [] proyecion={5,2,3};
 
     int factor=2;
     public MiVentana() {
@@ -34,7 +35,7 @@ public class MiVentana extends JFrame {
         super.paint(g);
 
 
-        parametrica(400,400,g);
+        parametrica(400,400,400,g);
 
 
 
@@ -42,25 +43,35 @@ public class MiVentana extends JFrame {
 
     }
 
-    public void parametrica(double x, double y, Graphics g) {
-        double _x, _y;
+    public void parametrica(double x, double y,double z, Graphics g) {
+        double _x, _y,_z;
 
         double  y_ = 0;
         double  x_ = 0;
+        double  z_ = 0;
 
 
-        for (double i = 0; i < 8 * Math.PI; i += Math.PI / 200) {
+        for (double i = 0; i < 8 * Math.PI; i += Math.PI / 2000) {
             _x = Math.cos(i);
             _y =Math.sin(i);
-
             System.out.println(_x+","+_y);
+            _z=i;
+            int X= (int) (_x+ (int) (_x+(proyecion[0]*(-_z/proyecion[2]))));
+            int Y= (int) (_y+ (int) (_y+(proyecion[1]*(-_z/proyecion[2]))));
             if(i==0){
-                y_ = _y;
-                x_ = _x;
+                y_ = Y;
+                x_ = X;
+                _z=i;
             }
-            Bresenham((int) _x, (int) _y, (int) x_, (int) y_,g);
-            y_ = _y;
-            x_ = _x;
+
+
+            //System.out.println(X+","+Y);
+
+
+            Bresenham((int) X, (int) Y, (int) x_, (int) y_,g);
+            y_ = Y;
+            x_ = X;
+            _z=i;
 
 
         }
