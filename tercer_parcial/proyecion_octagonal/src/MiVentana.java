@@ -12,7 +12,7 @@ public class MiVentana extends JFrame {
     private Graphics graPixel;
 
 
-   int [] proyecion={5,2,3};
+   int [] proyecion={0,0,1};
 
    int [][] puntos={
 

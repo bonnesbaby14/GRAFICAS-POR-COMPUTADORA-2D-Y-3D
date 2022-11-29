@@ -58,6 +58,9 @@ public class MiVentana extends JFrame {
             _z=i;
             int X= (int) (_x+ (int) (_x+(proyecion[0]*(-_z/proyecion[2]))));
             int Y= (int) (_y+ (int) (_y+(proyecion[1]*(-_z/proyecion[2]))));
+            x+=800;
+            y+=800;
+
             if(i==0){
                 y_ = Y;
                 x_ = X;
@@ -65,7 +68,7 @@ public class MiVentana extends JFrame {
             }
 
 
-            //System.out.println(X+","+Y);
+            System.out.println(X+","+Y);
 
 
             Bresenham((int) X, (int) Y, (int) x_, (int) y_,g);
