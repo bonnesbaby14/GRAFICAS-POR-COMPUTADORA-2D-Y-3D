@@ -11,13 +11,29 @@ public class MiVentana extends JFrame implements Runnable {
 
     private Image fondo;
     private Image buffer;
+    int [] proyecion={50,20,30};
+
+    int [][] resultado;
 
     private BufferedImage bufferImage;
     private Graphics graPixel;
     public ArrayList<String> puntos_dibujados;
 
+    int [][] puntos={
+
+            new  int [] {100,100,100},
+            new  int [] {200,100,100},
+            new  int [] {200,200,100},
+            new  int [] {100,200,100},
+            new  int [] {100,200,200},
+            new  int [] {200,200,200},
+            new  int [] {200,100,200},
+            new  int [] {100,100,200}
+    };
     int[] punto1={50,50};
     int[] punto2={100,50};
+
+    int incZ=0;
     int[] punto3={100,100};
     int[] punto4={50,100};
     boolean firstime=true;
@@ -58,7 +74,39 @@ public class MiVentana extends JFrame implements Runnable {
 
         update(g);
     }
+    public void cubo (int [] proyecion, int [][] puntos, Graphics g) {
+        int [][] finales= new int[puntos.length][2];
 
+        for (int i=0;i<puntos.length;i++){
+            int x=puntos[i][0]+(proyecion[0]*(-puntos[i][2]/proyecion[2]));
+            int y=puntos[i][1]+(proyecion[1]*(-puntos[i][2]/proyecion[2]));
+            finales[i]=new int [] {x,y};
+
+        }
+
+        /*
+        for (int y=0;y<finales.length-1;y++){
+            System.out.println(finales[y][0]+","+finales[y][0]);
+            Bresenham(finales[y][0]+300,finales[y][1]+300,finales[y+1][0]+300,finales[y+1][1]+300,g);
+        }
+        Bresenham(finales[0][0]+300,finales[0][1]+300,finales[7][0]+300,finales[7][1]+300,g);
+*/
+        Bresenham(finales[0][0]+300,finales[0][1]+300,finales[1][0]+300,finales[1][1]+300,g);
+        Bresenham(finales[1][0]+300,finales[1][1]+300,finales[2][0]+300,finales[2][1]+300,g);
+        Bresenham(finales[2][0]+300,finales[2][1]+300,finales[3][0]+300,finales[3][1]+300,g);
+        Bresenham(finales[3][0]+300,finales[3][1]+300,finales[0][0]+300,finales[0][1]+300,g);
+        Bresenham(finales[3][0]+300,finales[3][1]+300,finales[4][0]+300,finales[4][1]+300,g);
+        Bresenham(finales[4][0]+300,finales[4][1]+300,finales[5][0]+300,finales[5][1]+300,g);
+        Bresenham(finales[5][0]+300,finales[5][1]+300,finales[6][0]+300,finales[6][1]+300,g);
+        Bresenham(finales[6][0]+300,finales[6][1]+300,finales[7][0]+300,finales[7][1]+300,g);
+        Bresenham(finales[5][0]+300,finales[5][1]+300,finales[2][0]+300,finales[2][1]+300,g);
+        Bresenham(finales[7][0]+300,finales[7][1]+300,finales[6][0]+300,finales[6][1]+300,g);
+        Bresenham(finales[0][0]+300,finales[0][1]+300,finales[7][0]+300,finales[7][1]+300,g);
+        Bresenham(finales[4][0]+300,finales[4][1]+300,finales[7][0]+300,finales[7][1]+300,g);
+        Bresenham(finales[1][0]+300,finales[1][1]+300,finales[6][0]+300,finales[6][1]+300,g);
+
+
+    }
     @Override
     public void update(Graphics g) {
         g.setClip(0,0,getWidth(),getHeight());
@@ -68,14 +116,21 @@ public class MiVentana extends JFrame implements Runnable {
         gbufer.drawImage(fondo,0,0,this);
 
         if(firstime){
-            Bresenham(punto1[0],punto1[1],punto2[0],punto2[1],gbufer);
-            Bresenham(punto2[0],punto2[1],punto3[0],punto3[1],gbufer);
-            Bresenham(punto3[0],punto3[1],punto4[0],punto4[1],gbufer);
-            Bresenham(punto4[0],punto4[1],punto1[0],punto1[1],gbufer);
-            System.out.println("se pinto por primera vex");
+
+            cubo(proyecion,puntos,g);
             firstime=false;
 
+            resultado=puntos;
         }
+        resultado=  escalar(incX,incY, incZ,puntos);
+
+
+
+
+
+
+        cubo(proyecion,resultado,g);
+        g.drawImage(buffer,0,0,this);
 
 
 
@@ -83,7 +138,7 @@ public class MiVentana extends JFrame implements Runnable {
 
 
 
-        int [][] resultado= escalar(incX,incY, new int[][] {punto1,punto2,punto3,punto4});
+
 
 
 
@@ -100,29 +155,30 @@ public class MiVentana extends JFrame implements Runnable {
 
 
 
-        Bresenham(resultado[0][0],resultado[0][1],resultado[1][0],resultado[1][1],gbufer);
-        Bresenham(resultado[1][0],resultado[1][1],resultado[2][0],resultado[2][1],gbufer);
-        Bresenham(resultado[2][0],resultado[2][1],resultado[3][0],resultado[3][1],gbufer);
-        Bresenham(resultado[3][0],resultado[3][1],resultado[0][0],resultado[0][1],gbufer);
         g.drawImage(buffer,0,0,this);
 
     }
 
 
 
-    public int [][]  escalar(int incX, int incY, int [][] puntos) {
+    public int [][]  escalar(int incX, int incY,  int incZ, int [][] puntos) {
 
 
 
         int [][] resultado=multiply(new int[][]{
-                {incX,0,0},
-                {0,incY,0},
-                {0,0,1}
+                {incX,0,0,0},
+                {0,incY,0,0},
+                {0,0,incZ,0},
+                {0,0,0,1}
         },new int[][]{
-                {puntos[0][0],puntos[0][1],1}
-                ,{puntos[1][0],puntos[1][1],1}
-                ,{puntos[2][0],puntos[2][1],1}
-                ,{puntos[3][0],puntos[3][1],1}
+                {puntos[0][0],puntos[0][1],puntos[0][2],1}
+                ,{puntos[1][0],puntos[1][1],puntos[1][2],1}
+                ,{puntos[2][0],puntos[2][1],puntos[2][2],1}
+                ,{puntos[3][0],puntos[3][1],puntos[3][2],1}
+                ,{puntos[4][0],puntos[4][1],puntos[4][2],1}
+                ,{puntos[5][0],puntos[5][1],puntos[5][2],1}
+                ,{puntos[6][0],puntos[6][1],puntos[6][2],1}
+                ,{puntos[7][0],puntos[7][1],puntos[7][2],1}
         });
 
 
@@ -223,7 +279,7 @@ public class MiVentana extends JFrame implements Runnable {
             try {
                 incX+=1;
                 incY+=1;
-
+                incZ=1;
 
                 repaint();
                 sleep(500);

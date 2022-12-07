@@ -46,7 +46,7 @@ public class MiVentana extends JFrame {
         double x = 0, x_ = 0;
 
 
-        for (double i = 0; i <= (Math.PI); i += (Math.PI*factor/2) / 8) {
+        for (double i = 0; i <= (Math.PI); i += (Math.PI*factor/2) / 800) {
             y = Math.abs((Math.sin(i) * 180) - y1);
             x = (i * 80) + x1;
             putPixel((int) x+1, (int) y, Color.black,g);

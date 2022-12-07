@@ -48,8 +48,8 @@ public class MiVentana extends JFrame {
         double x = 0, x_ =0;
         
 
-        for (float i = 0; i < 4 * Math.PI; i +=  Math.PI / 500) {
-            x = i * Math.cos(4 * i) * 20 + 350;
+        for (float i = 0; i < 2 * Math.PI; i +=  Math.PI / 205) {
+            x = i * Math.cos(8 * i) * 20 + 350;
             y = i * 20 + 100;
 
             if(i==0){
