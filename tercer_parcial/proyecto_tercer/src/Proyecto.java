@@ -55,6 +55,7 @@ public class Proyecto extends JFrame implements Runnable{
             {2,3,2},
             {0,3,2},
             {1,2,5},
+
             {1.5F, 1.5F,2},
             {0.5F, 1.5F,2},
             {0.5F, 2.5F,2},
